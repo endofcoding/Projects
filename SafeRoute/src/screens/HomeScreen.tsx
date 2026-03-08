@@ -1,7 +1,10 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { useNavigation } from '../context/NavigationContext';
 
-export default function HomeScreen({ navigation }: any) {
+export default function HomeScreen() {
+  const { navigate } = useNavigation();
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Welcome to SafeRoute</Text>
@@ -9,7 +12,7 @@ export default function HomeScreen({ navigation }: any) {
 
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate('Map')}
+        onPress={() => navigate('Map')}
       >
         <Text style={styles.buttonText}>Start Route Planning</Text>
       </TouchableOpacity>

@@ -1,5 +1,8 @@
 {
-  "name": "SafeRoute",
-  "displayName": "SafeRoute",
-  "version": "1.0.0"
+  "expo": {
+    "name": "SafeRoute",
+    "slug": "saferoute",
+    "version": "1.0.0",
+    "assetBundlePatterns": ["**/*"]
+  }
 }

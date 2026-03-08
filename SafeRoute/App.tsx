@@ -1,30 +1,31 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import { NavigationProvider, useNavigation } from './src/context/NavigationContext';
+import HomeScreen from './src/screens/HomeScreen';
+import MapScreen from './src/screens/MapScreen';
+
+function AppContent() {
+  const { currentScreen } = useNavigation();
+
+  return (
+    <View style={styles.container}>
+      {currentScreen === 'Home' && <HomeScreen />}
+      {currentScreen === 'Map' && <MapScreen />}
+    </View>
+  );
+}
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>SafeRoute App</Text>
-      <Text style={styles.subtitle}>Welcome!</Text>
-    </View>
+    <NavigationProvider>
+      <AppContent />
+    </NavigationProvider>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: '#f3f4f6',
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    color: '#1e40af',
-  },
-  subtitle: {
-    fontSize: 16,
-    color: '#666',
-    marginTop: 10,
   },
 });
