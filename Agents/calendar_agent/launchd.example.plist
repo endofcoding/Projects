@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.shanaaz.calendar_agent.weekly_summary</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/usr/bin/python3</string>
+    <string>/Users/shanaaz/Projects/Agents/calendar_agent/main.py</string>
+    <string>--config</string>
+    <string>/Users/shanaaz/Projects/Agents/calendar_agent/config.example.json</string>
+    <string>--summary-days</string>
+    <string>7</string>
+  </array>
+  <key>StartCalendarInterval</key>
+  <dict>
+    <!-- Weekday: 1=Sunday ... 7=Saturday; Friday is 6 -->
+    <key>Weekday</key>
+    <integer>6</integer>
+    <key>Hour</key>
+    <integer>9</integer>
+    <key>Minute</key>
+    <integer>0</integer>
+  </dict>
+  <key>StandardOutPath</key>
+  <string>/tmp/calendar_agent_weekly_summary.out</string>
+  <key>StandardErrorPath</key>
+  <string>/tmp/calendar_agent_weekly_summary.err</string>
+</dict>
+</plist>

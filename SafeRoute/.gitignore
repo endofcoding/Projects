@@ -1,0 +1,17 @@
+node_modules
+*.log
+.DS_Store
+.env
+.gradle
+build
+dist
+.vscode
+.idea
+ios/Pods
+ios/Podfile.lock
+android/.gradle
+android/build
+*.jks
+*.keystore
+coverage
+.nyc_output

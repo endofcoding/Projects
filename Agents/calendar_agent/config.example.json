@@ -1,0 +1,12 @@
+{
+  "calendar_id": "primary",
+  "backend": "local",
+  "poll_interval_seconds": 300,
+  "lookahead_minutes": 60,
+  "credentials_path": "credentials.json",
+  "token_path": "token.json",
+  "notify": false,
+  "notify_methods": ["macos"],
+  "slack_webhook": "",
+  "notify_on_suggestions_only": true
+}

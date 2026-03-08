@@ -1,0 +1,7 @@
+* text=auto
+*.ts diff=javascript
+*.tsx diff=javascript
+*.js diff=javascript
+*.jsx diff=javascript
+*.json merge=union
+*.md merge=union
