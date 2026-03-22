@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Pressable } from 'react-native';
 import { useNavigation } from '../context/NavigationContext';
 
 export default function HomeScreen() {
@@ -10,12 +10,12 @@ export default function HomeScreen() {
       <Text style={styles.title}>Welcome to SafeRoute</Text>
       <Text style={styles.subtitle}>Safe Route Planning Application</Text>
 
-      <TouchableOpacity
+      <Pressable
         style={styles.button}
         onPress={() => navigate('Map')}
       >
         <Text style={styles.buttonText}>Start Route Planning</Text>
-      </TouchableOpacity>
+      </Pressable>
 
       <View style={styles.featureList}>
         <Text style={styles.featureTitle}>Features:</Text>

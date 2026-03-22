@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { config } from '../config/apiConfig';
 
 interface MapComponentProps {
@@ -8,43 +8,14 @@ interface MapComponentProps {
   apiKey?: string;
 }
 
-declare global {
-  namespace google {
-    namespace maps {
-      class Map {
-        constructor(element: HTMLElement, options: any);
-        fitBounds(bounds: any): void;
-        setCenter(center: { lat: number; lng: number }): void;
-        setZoom(zoom: number): void;
-      }
-      class LatLng {
-        constructor(lat: number, lng: number);
-      }
-      class LatLngBounds {
-        constructor();
-        extend(point: LatLng): void;
-      }
-      class Marker {
-        constructor(options: any);
-      }
-      namespace places {
-        class PlacesService {
-          getDetails(request: any, callback: (result: any, status: any) => void): void;
-        }
-      }
-      const maps: any;
-    }
-  }
-}
-
 export const MapComponent: React.FC<MapComponentProps> = ({
   startLocation,
   endLocation,
   apiKey = config.googleMapsApiKey,
 }) => {
-  const mapRef = useRef<google.maps.Map | null>(null);
+  const mapRef = useRef<any>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const markersRef = useRef<google.maps.Marker[]>([]);
+  const markersRef = useRef<any[]>([]);
 
   useEffect(() => {
     // Check if maps library is loaded
@@ -193,8 +164,8 @@ export const MapComponent: React.FC<MapComponentProps> = ({
 
   return (
     <View style={styles.container}>
-      <div
-        ref={containerRef}
+      <View
+        ref={containerRef as any}
         style={{
           width: '100%',
           height: '100%',
