@@ -1,0 +1,140 @@
+// ===============================================================
+// Assumed Data Model
+// ===============================================================
+//
+// Collection: users
+// Document ID: {userId} (matches auth.uid)
+// Fields:
+//   - uid: string (required)
+//   - email: string (required, email format)
+//   - displayName: string (optional)
+//   - photoURL: string (optional, uri format)
+//   - createdAt: timestamp (required)
+//   - lastLogin: timestamp (required)
+//
+// Collection: savedRoutes
+// Document ID: {routeId}
+// Fields:
+//   - id: string (required)
+//   - userId: string (required, matches auth.uid)
+//   - name: string (required, max 100 chars)
+//   - origin: string (required)
+//   - destination: string (required)
+//   - coordinates: list (required, max 500 points)
+//   - safetyScore: number (required, 0-100)
+//   - createdAt: timestamp (required)
+//
+// Collection: safetyReports
+// Document ID: {reportId}
+// Fields:
+//   - id: string (required)
+//   - userId: string (required, matches auth.uid)
+//   - type: string (required, enum: lighting, construction, crowded, isolated, other, safe-haven)
+//   - description: string (required, max 500 chars)
+//   - lat: number (required)
+//   - lng: number (required)
+//   - createdAt: timestamp (required)
+//
+// ===============================================================
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ===============================================================
+    // Helper Functions
+    // ===============================================================
+
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    function isDocOwner() {
+      return isAuthenticated() && request.auth.uid == resource.data.userId;
+    }
+
+    function isValidEmail(email) {
+      return email is string && email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");
+    }
+
+    function isValidUrl(url) {
+      return url is string && (url.matches("^https://.*") || url.matches("^http://.*"));
+    }
+
+    function hasOnlyAllowedFields(allowedFields) {
+      return request.resource.data.keys().hasOnly(allowedFields);
+    }
+
+    function isAdmin() {
+      return isAuthenticated() && 
+        (get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin' ||
+         (request.auth.token.email == "meera.aneez@gmail.com" && request.auth.token.email_verified == true));
+    }
+
+    // ===============================================================
+    // Domain Validators
+    // ===============================================================
+
+    function isValidUser(data) {
+      return hasOnlyAllowedFields(['uid', 'email', 'displayName', 'photoURL', 'createdAt', 'lastLogin', 'role']) &&
+             data.uid == request.auth.uid &&
+             isValidEmail(data.email) &&
+             (data.displayName == null || (data.displayName is string && data.displayName.size() <= 100)) &&
+             (data.photoURL == null || isValidUrl(data.photoURL)) &&
+             data.createdAt is timestamp &&
+             data.lastLogin is timestamp;
+    }
+
+    function isValidSavedRoute(data) {
+      return hasOnlyAllowedFields(['id', 'userId', 'name', 'origin', 'destination', 'coordinates', 'safetyScore', 'createdAt']) &&
+             data.userId == request.auth.uid &&
+             data.name is string && data.name.size() > 0 && data.name.size() <= 100 &&
+             data.origin is string && data.destination is string &&
+             data.coordinates is list && data.coordinates.size() <= 500 &&
+             data.safetyScore is number && data.safetyScore >= 0 && data.safetyScore <= 100 &&
+             data.createdAt is timestamp;
+    }
+
+    function isValidSafetyReport(data) {
+      return hasOnlyAllowedFields(['id', 'userId', 'type', 'description', 'lat', 'lng', 'createdAt']) &&
+             data.userId == request.auth.uid &&
+             data.type in ['lighting', 'construction', 'crowded', 'isolated', 'other', 'safe-haven'] &&
+             data.description is string && data.description.size() <= 500 &&
+             data.lat is number && data.lng is number &&
+             data.createdAt is timestamp;
+    }
+
+    // ===============================================================
+    // Rules
+    // ===============================================================
+
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    match /users/{userId} {
+      allow read: if isOwner(userId) || isAdmin();
+      allow create: if isOwner(userId) && isValidUser(request.resource.data) && (request.resource.data.role == 'user' || isAdmin());
+      allow update: if isOwner(userId) && isValidUser(request.resource.data) && (request.resource.data.role == resource.data.role || isAdmin());
+    }
+
+    match /savedRoutes/{routeId} {
+      allow read: if isDocOwner() || isAdmin();
+      allow create: if isAuthenticated() && isValidSavedRoute(request.resource.data);
+      allow update: if isDocOwner() && isValidSavedRoute(request.resource.data) && request.resource.data.userId == resource.data.userId;
+      allow delete: if isDocOwner() || isAdmin();
+    }
+
+    match /safetyReports/{reportId} {
+      allow read: if true;
+      allow create: if isAuthenticated() && isValidSafetyReport(request.resource.data);
+      allow update: if isDocOwner() && isValidSafetyReport(request.resource.data) && request.resource.data.userId == resource.data.userId;
+      allow delete: if isDocOwner() || isAdmin();
+    }
+  }
+}

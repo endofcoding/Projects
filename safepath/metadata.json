@@ -1,0 +1,5 @@
+{
+  "name": "SafePath",
+  "description": "A navigation app that prioritizes safety by suggesting well-lit and busy routes.",
+  "requestFramePermissions": ["geolocation"]
+}

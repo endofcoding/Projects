@@ -33,7 +33,7 @@ Thank you for your interest in contributing to SafeRoute! We welcome contributio
 
 ### Linting
 - Follow ESLint rules
-- Run `npm run lint:fix` to auto-fix issues
+- Run `npm run lint` to check for issues, or `npm run lint:fix` to auto-fix
 
 ### Type Safety
 - Use TypeScript for new code

@@ -27,7 +27,7 @@ A secure route planning mobile application built with React Native.
 ## Documentation
 
 - [BUILD.md](BUILD.md) - Complete build and deployment guide
-- [API Documentation](#) - Backend API specifications
+- [API Documentation](REQUIREMENTS.md#6-api-requirements) - Backend API specifications
 
 ## Features
 
@@ -40,10 +40,10 @@ A secure route planning mobile application built with React Native.
 ## Tech Stack
 
 - **Frontend**: React Native
-- **State Management**: Redux (if applicable)
+- **State Management**: Context API / Redux
 - **Navigation**: React Navigation
-- **Backend**: Node.js/Express (if applicable)
-- **Database**: Firebase/PostgreSQL (if applicable)
+- **Backend**: Node.js/Express
+- **Database**: PostgreSQL / MongoDB / Firebase
 
 ## Project Structure
 

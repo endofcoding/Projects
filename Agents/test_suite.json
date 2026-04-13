@@ -1,0 +1,44 @@
+{
+  "suite": "Phase 1 MVP Benchmark Baseline",
+  "total_tasks": 20,
+  "tiers": [
+    {
+      "tier": 1,
+      "name": "Basic Functions",
+      "tasks": [
+        { "id": "t1_001", "description": "Create a calculator wrapper with add, multiply, subtract, divide." },
+        { "id": "t1_002", "description": "Write a string reversal function." },
+        { "id": "t1_003", "description": "Write a function that checks if a string is a palindrome." },
+        { "id": "t1_004", "description": "Write a function that iterates through a list and filters out odd numbers." },
+        { "id": "t1_005", "description": "Write a map-reduce sequence to sum an array." },
+        { "id": "t1_006", "description": "Convert all strings in a list to uppercase." },
+        { "id": "t1_007", "description": "Write a function to read a CSV file into a Python dict." },
+        { "id": "t1_008", "description": "Write a function to save a Python dict into a JSON file." },
+        { "id": "t1_009", "description": "Write a function that counts the frequency of words in a sentence." },
+        { "id": "t1_010", "description": "Find the maximum and minimum numbers in an unsorted list." }
+      ]
+    },
+    {
+      "tier": 2,
+      "name": "Intermediate Logic",
+      "tasks": [
+        { "id": "t2_001", "description": "Create an Animal base class and an inherited Dog class with polymorphic methods." },
+        { "id": "t2_002", "description": "Write a mock API Client using the requests library that returns fake GET endpoints." },
+        { "id": "t2_003", "description": "Write a Regex function that strictly validates an email address." },
+        { "id": "t2_004", "description": "Write a Regex function that validates a strong password (1 Uppercase, 1 Number, 8 chars)." },
+        { "id": "t2_005", "description": "Write a dictionary deep-merge algorithm." },
+        { "id": "t2_006", "description": "Implement an exception handler that gracefully manages division by zero and logs a warning." },
+        { "id": "t2_007", "description": "Write a script to parse ISO-8601 timestamps into human-readable strings." }
+      ]
+    },
+    {
+      "tier": 3,
+      "name": "Known Hard Cases",
+      "tasks": [
+        { "id": "t3_001", "description": "Write an efficient recursive function to calculate the Nth number in the Fibonacci sequence." },
+        { "id": "t3_002", "description": "Write an async/await sequence that fires two sleep statements concurrently and awaits both." },
+        { "id": "t3_003", "description": "Write a mock SQLite connection setup that creates a User table securely." }
+      ]
+    }
+  ]
+}
