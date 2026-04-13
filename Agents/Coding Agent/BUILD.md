@@ -10,8 +10,8 @@ To initialize the orchestrator and run a baseline request:
 
 ```bash
 # 1. Clone the repository
-git clone <your-internal-repo> autonomous-factory
-cd autonomous-factory
+git clone <your-internal-repo> agents
+cd agents
 
 # 2. Install Python Dependencies
 pip install -r requirements.txt
