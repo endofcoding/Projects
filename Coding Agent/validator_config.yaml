@@ -1,0 +1,13 @@
+test_patterns:
+  - "test_*.py"
+  - "*_test.py"
+search_recursive: true
+pytest_timeout_seconds: 30
+python_version: "3.9-slim"
+require_minimum_tests: 1
+sandbox:
+  memory: "512m"
+  cpus: "1.0"
+  pids_limit: 50
+  network: "none"
+  security_opt: "no-new-privileges"

@@ -14,7 +14,7 @@ git clone <your-internal-repo> agents
 cd agents
 
 # 2. Install Python Dependencies
-pip install -r requirements.txt
+pip install -r requirements.md
 
 # 3. Trigger the LangGraph State Machine
 python run.py --task "build a python calculator class"
